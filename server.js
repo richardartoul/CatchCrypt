@@ -28,8 +28,8 @@ var app = express();
 app.use(errorHandler);
 
 /* route for uploading files, the uplodate.single() function is middleware that will parse the multipart form, store the file in the appropriate folder, and add a property called file to the req argument that can be used to access information about the uploaded file */
-app.post('/api/upload', upload.single('userFile'), function(req, res, next) {
-  console.log(req.file);
+app.post('/api/upload', upload.single('userFile'), function(req, res) {
+  res.status(201).send({uploadId: req.file.filename});
 });
 
 //start server
