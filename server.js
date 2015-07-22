@@ -36,7 +36,7 @@ app.get('/api/:uploadId', function(req, res) {
     if (err) {
       res.status(404).send('File not found!');
     }
-    res.send(data);
+    res.status(200).send(data);
   });
 });
 
