@@ -1,5 +1,6 @@
 var request = require('supertest');
 var should = require('should');
+var fs = require('fs');
 
 describe('API', function() {
   describe('upload', function() {
@@ -10,12 +11,14 @@ describe('API', function() {
     });
 
     it('should store uploaded files', function(done) {
+      var uploadId;
       agent.post('/api/upload').attach('userFile', './specs/testImage.jpg')
       .expect(201)
       .end(function(err, response) {
         if (err) throw err;
         response.body.uploadId.should.exist;
-        done();
+        uploadId = response.body.uploadId;
+        fs.unlink('./upload/' + uploadId, done);
       });
     });
   });
@@ -39,7 +42,7 @@ describe('API', function() {
           if (err) throw err;
           response.text.should.not.eql({});
           response.text.should.not.equal('File not found!');
-          done();
+          fs.unlink('./upload/' + uploadId, done);
         });
       });
     });
