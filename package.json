@@ -1,0 +1,20 @@
+{
+  "name": "encryption-api",
+  "version": "1.0.0",
+  "description": "A simple API for uplodating files for encryption, and retrieving them later with a password.",
+  "main": "server.js",
+  "scripts": {
+    "test": "mocha specs/api.js",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "api",
+    "encrypt"
+  ],
+  "author": "Richard Artoul",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.13.1",
+    "multer": "^1.0.1"
+  }
+}
