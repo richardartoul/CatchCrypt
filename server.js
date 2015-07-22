@@ -5,6 +5,7 @@
 
 var config = require('./config');
 var errorHandler = require('./errorHandler');
+var fs = require('fs');
 
 //microframework that makes creating servers in Node easier
 var express = require('express');
@@ -24,13 +25,23 @@ var upload = multer({
 
 var app = express();
 
-//error handling middleware applied last
-app.use(errorHandler);
-
 /* route for uploading files, the uplodate.single() function is middleware that will parse the multipart form, store the file in the appropriate folder, and add a property called file to the req argument that can be used to access information about the uploaded file */
 app.post('/api/upload', upload.single('userFile'), function(req, res) {
   res.status(201).send({uploadId: req.file.filename});
 });
+
+app.get('/api/:uploadId', function(req, res) {
+  var filePath = './upload/' + req.params.uploadId;
+  fs.readFile(filePath, function (err,data) {
+    if (err) {
+      res.status(404).send('File not found!');
+    }
+    res.send(data);
+  });
+});
+
+//error handling middleware applied last
+app.use(errorHandler);
 
 //start server
 var server = app.listen(port, function() {
