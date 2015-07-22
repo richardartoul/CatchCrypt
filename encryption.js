@@ -1,7 +1,7 @@
 var crypto = require('crypto');
-var config = require('../config');
+var config = require('./config');
 var algorithm = config.encryptionAlgorithm;
-var password = require('../encryptionPassword');
+var password = require('./encryptionPassword');
 
 var encrypt = function(buffer) {
   var cipher = crypto.createCipher(algorithm, password);
