@@ -14,7 +14,10 @@
   "author": "Richard Artoul",
   "license": "MIT",
   "dependencies": {
+    "bcrypt": "^0.8.3",
+    "crypto": "0.0.3",
     "express": "^4.13.1",
+    "mongoose": "^4.0.8",
     "multer": "^1.0.1",
     "should": "^7.0.2",
     "supertest": "^1.0.1"
