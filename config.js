@@ -8,5 +8,7 @@ module.exports = {
   //max number of files to upload per form
   numFiles: 1,
   /* ---- encryption settings ---- */
-  encryptionAlgorithm: 'aes-256-ctr'
+  encryptionAlgorithm: 'aes-256-ctr',
+  /* ---- link settings ---- */
+  linkExpireInHours: 24
 }

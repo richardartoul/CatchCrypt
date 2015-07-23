@@ -1,6 +1,8 @@
 /*TODO: 
 1) look into file permissions / how to make sure no files that are uploaded ever get executed
 2) add logging functionality instead of console logging
+3) Need a test to verify that links become unavailable 24 hours after encryption
+4) Right now links expire after 24 hours, bu files are not removed - could take care of this with a cronjob or something.
 */
 
 var config = require('./config');
@@ -55,6 +57,10 @@ app.get('/api/:uploadId', function(req, res) {
   db.fileModel.find({_id: req.params.uploadId}, function(err, foundFile) {
     if (foundFile && foundFile.length > 0) {
       foundFile = foundFile[0];
+      /* Allows the links to expire after a certain period of time. Substracting the two dates will return an integer that represents the number of milliseconds that elapsed between the two different timestamps. The number of milliseconds can be divided by 1000, 60, and then 60 again to get the difference in hours */
+      if (((Date.now() - foundFile.date)/1000/60/60) > config.linkExpireInHours) {
+        return res.status(400).send('Link expired!');
+      } 
       var filePath = './upload/' + foundFile._id + '/' + foundFile.name;
       console.log(filePath);
       fs.readFile(filePath, function (err,data) {
