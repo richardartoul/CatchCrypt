@@ -34,7 +34,8 @@ module.exports = function(req, res) {
       //If file was submitted with a password, password is required to retrieve the file
       if (foundFile.password) {
         if (!req.query.password) {
-          res.status(400).send('Password required to retrieve this file!');
+          //delivers an html file that will request the user for the password and then download the file
+          res.status(400).sendfile('./apiInterface/password.html');
         }
         //If file requires a password AND a password is provided, compare them to make sure that they match before delivering file.
         else if (req.query.password) {

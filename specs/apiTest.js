@@ -101,22 +101,28 @@ describe('API', function() {
       });
     });
 
-    it('should not retrieve a file that was stored with a password if the client does not provide a password', function(done) {
-      var uploadId;
-      agent.post('/api/upload')
-      .attach('userFile', './specs/testImage.jpg')
-      .type('form')
-      .field('password', 'hi')
-      .send()
-      .expect(201)
-      .end(function(err, response) {
-        uploadId = response.body.uploadId;
-        agent.get('/api/' + uploadId)
-        .expect(400)
+    it('should direct user to enter password if one is not provided for a password protected file', function(done) {
+      var passwordHtml;
+      //get the html for the password page that the server should send back, then make the ajax requests
+      fs.readFile('./apiInterface/password.html', {encoding: 'utf-8'}, function(err, data) {
+        if (err) throw err;
+        passwordHtml = data;
+        var uploadId;
+        agent.post('/api/upload')
+        .attach('userFile', './specs/testImage.jpg')
+        .type('form')
+        .field('password', 'hi')
+        .send()
+        .expect(201)
         .end(function(err, response) {
-          if (err) throw err;
-          response.text.should.equal('Password required to retrieve this file!');
-          deleteFile(uploadId, testFile, done);
+          uploadId = response.body.uploadId;
+          agent.get('/api/' + uploadId)
+          .expect(400)
+          .end(function(err, response) {
+            if (err) throw err;
+            response.text.should.equal(passwordHtml);
+            deleteFile(uploadId, testFile, done);
+          });
         });
       });
     });
