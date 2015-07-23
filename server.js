@@ -29,53 +29,15 @@ var upload = multer({
   }
 });
 
-//encryption setup
-var crypto = require('crypto');
-var algorithm = config.encryptionAlgorithm;
-var password = require('./encryptionPassword');
-
 var app = express();
 
 /* route for uploading files, the uplodate.single() function is middleware that will parse the multipart form, store the file in the appropriate folder, and add a property called file to the req argument that can be used to access information about the uploaded file */
-app.post('/api/upload', upload.single('userFile'), function(req, res) {
-  var newFile = new db.fileModel();
-  newFile.name = req.file.originalname;
-  newFile.save(function(err, insertedFile) {
-    var folderPath = './upload/' + insertedFile._id
-    var filePath = folderPath + '/' + insertedFile.name;
-    fs.mkdir(folderPath, function(err) {
-      if (err) throw err;
-      fs.writeFile(filePath, encryption.encrypt(req.file.buffer), function(err) {
-        if (err) throw err;
-        res.status(201).send({uploadId: insertedFile._id});
-      });
-    })
-  });
-});
+var uploadFileHandler = require('./routeHandlers/uploadFile');
+app.post('/api/upload', upload.single('userFile'), uploadFileHandler);
 
-app.get('/api/:uploadId', function(req, res) {
-  db.fileModel.find({_id: req.params.uploadId}, function(err, foundFile) {
-    if (foundFile && foundFile.length > 0) {
-      foundFile = foundFile[0];
-      /* Allows the links to expire after a certain period of time. Substracting the two dates will return an integer that represents the number of milliseconds that elapsed between the two different timestamps. The number of milliseconds can be divided by 1000, 60, and then 60 again to get the difference in hours */
-      if (((Date.now() - foundFile.date)/1000/60/60) > config.linkExpireInHours) {
-        return res.status(400).send('Link expired!');
-      } 
-      var filePath = './upload/' + foundFile._id + '/' + foundFile.name;
-      console.log(filePath);
-      fs.readFile(filePath, function (err,data) {
-        if (err) {
-          return res.status(404).send('File not found!');
-        }
-        res.setHeader('Content-disposition', 'attachment; filename=' + foundFile.name);
-        res.status(200).send(encryption.decrypt(data));
-      });
-    }
-    else {
-      return res.status(404).send('File not found!');
-    }
-  });
-});
+//route for retrieving files --- this is how the links work
+var getFileHandler = require('./routeHandlers/getFile');
+app.get('/api/:uploadId', getFileHandler);
 
 //error handling middleware applied last
 app.use(errorHandler);

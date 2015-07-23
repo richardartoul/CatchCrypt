@@ -10,5 +10,8 @@ module.exports = {
   /* ---- encryption settings ---- */
   encryptionAlgorithm: 'aes-256-ctr',
   /* ---- link settings ---- */
-  linkExpireInHours: 24
+  linkExpireInHours: 24,
+  /* ---- security settings ---- */
+  //number of times to run bcrypt algorithm when generating salt
+  bcryptRepeat: 10
 }
