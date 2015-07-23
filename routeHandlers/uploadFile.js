@@ -21,6 +21,9 @@ var saveFile = function(req, res, newFile) {
 };
 
 module.exports = function(req, res) {
+  if (!req.file) {
+    res.status(400).send('You must submit a file!');
+  }
   var newFile = new db.fileModel();
   newFile.name = req.file.originalname;
   if (req.body.password) {

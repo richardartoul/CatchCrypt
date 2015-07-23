@@ -23,6 +23,16 @@ describe('API', function() {
         deleteFile(uploadId, testFile, done);
       });
     });
+
+    it('should respond appropriately if no file is attached', function(done) {
+      agent.post('/api/upload')
+      .expect(400)
+      .end(function(err, response) {
+        if (err) throw err;
+        response.text.should.equal('You must submit a file!');
+        done();
+      });
+    });
   });
 
   describe('download', function() {

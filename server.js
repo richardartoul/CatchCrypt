@@ -31,7 +31,8 @@ var upload = multer({
 });
 
 var app = express();
-// app.use(parser.json());
+//deliver the api interface
+app.use(express.static(__dirname + '/apiInterface'));
 
 /* route for uploading files, the uplodate.single() function is middleware that will parse the multipart form, store the file in the appropriate folder, and add a property called file to the req argument that can be used to access information about the uploaded file */
 var uploadFileHandler = require('./routeHandlers/uploadFile');
