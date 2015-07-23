@@ -1,6 +1,8 @@
 var request = require('supertest');
 var should = require('should');
 var fs = require('fs');
+var deleteFile = require('./utils/deleteFile');
+var testFile = 'testImage.jpg';
 
 describe('API', function() {
   describe('upload', function() {
@@ -18,7 +20,7 @@ describe('API', function() {
         if (err) throw err;
         response.body.uploadId.should.exist;
         uploadId = response.body.uploadId;
-        fs.unlink('./upload/' + uploadId, done);
+        deleteFile(uploadId, testFile, done);
       });
     });
   });
@@ -42,7 +44,7 @@ describe('API', function() {
           if (err) throw err;
           response.text.should.not.eql({});
           response.text.should.not.equal('File not found!');
-          fs.unlink('./upload/' + uploadId, done);
+          deleteFile(uploadId, testFile, done);
         });
       });
     });
