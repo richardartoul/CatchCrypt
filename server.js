@@ -10,6 +10,7 @@ var errorHandler = require('./errorHandler');
 var fs = require('fs');
 var db = require('./db');
 var encryption = require('./encryption');
+// var parser = require('body-parser');
 
 //microframework that makes creating servers in Node easier
 var express = require('express');
@@ -30,6 +31,7 @@ var upload = multer({
 });
 
 var app = express();
+// app.use(parser.json());
 
 /* route for uploading files, the uplodate.single() function is middleware that will parse the multipart form, store the file in the appropriate folder, and add a property called file to the req argument that can be used to access information about the uploaded file */
 var uploadFileHandler = require('./routeHandlers/uploadFile');

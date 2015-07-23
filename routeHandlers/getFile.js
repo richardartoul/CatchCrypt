@@ -32,21 +32,23 @@ module.exports = function(req, res) {
       }
 
       //If file was submitted with a password, password is required to retrieve the file
-      if (foundFile.password && !req.body.password) {
-        return res.status(400).send('Password required to retrieve this file!');
+      if (foundFile.password) {
+        if (!req.query.password) {
+          res.status(400).send('Password required to retrieve this file!');
+        }
+        //If file requires a password AND a password is provided, compare them to make sure that they match before delivering file.
+        else if (req.query.password) {
+          bcrypt.compare(req.query.password, foundFile.password, function(err, same) {
+            if (same) {
+              sendFile(req, res, foundFile);
+            }
+            else {
+              res.status(400).send('Wrong password!');
+            }
+          });
+        }
       }
-
-      //If file requires a password AND a password is provided, compare them to make sure that they match before delivering file.
-      if (foundFile.password && req.body.password) {
-        bcrypt.compare(req.body.password, foundFile.password, function(err, same) {
-          if (same) {
-            sendFile(req, res, foundFile);
-          }
-          else {
-            res.status(400).send('Wrong password!');
-          }
-        });
-      }
+      //if file doesn't require a password
       else {
         sendFile(req, res, foundFile);
       }
