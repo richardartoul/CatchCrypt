@@ -7,6 +7,7 @@ var config = require('./config');
 var errorHandler = require('./errorHandler');
 var fs = require('fs');
 var db = require('./db');
+var encryption = require('./encryption');
 
 //microframework that makes creating servers in Node easier
 var express = require('express');
@@ -42,7 +43,7 @@ app.post('/api/upload', upload.single('userFile'), function(req, res) {
     var filePath = folderPath + '/' + insertedFile.name;
     fs.mkdir(folderPath, function(err) {
       if (err) throw err;
-      fs.writeFile(filePath, req.file.buffer, function(err) {
+      fs.writeFile(filePath, encryption.encrypt(req.file.buffer), function(err) {
         if (err) throw err;
         res.status(201).send({uploadId: insertedFile._id});
       });
@@ -61,7 +62,7 @@ app.get('/api/:uploadId', function(req, res) {
           return res.status(404).send('File not found!');
         }
         res.setHeader('Content-disposition', 'attachment; filename=' + foundFile.name);
-        res.status(200).send(data);
+        res.status(200).send(encryption.decrypt(data));
       });
     }
     else {
