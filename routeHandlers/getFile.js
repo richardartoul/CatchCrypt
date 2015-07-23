@@ -4,6 +4,7 @@ var isExpired = require('./utils/isExpired');
 var config = require('../config');
 var encryption = require('../encryption');
 var bcrypt = require('bcrypt');
+var path = require('path');
 
 //helper function that reads file from disk and sends it to client
 var sendFile = function(req, res, file) {
@@ -35,7 +36,7 @@ module.exports = function(req, res) {
       if (foundFile.password) {
         if (!req.query.password) {
           //delivers an html file that will request the user for the password and then download the file
-          res.status(400).sendfile('./apiInterface/password.html');
+          res.status(400).sendFile(path.join(__dirname, '/../apiInterface/password.html'));
         }
         //If file requires a password AND a password is provided, compare them to make sure that they match before delivering file.
         else if (req.query.password) {

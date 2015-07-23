@@ -10,12 +10,13 @@
     <body>
         <h1> CatchCrypt </h1>
         <h3> Upload a file and we'll keep it safe for you...for 24 hours</h3>
-        <form action="/api/upload" method="POST" enctype="multipart/form-data">
-        Select file to upload: <input label="Select file" name="userFile" type="file" size="40"> 
+        <form action="/api/upload" method="POST" enctype="multipart/form-data" id="upload-form">
+        Select file to upload: <input label="Select file" name="userFile" type="file" size="40" id="file-input"> 
         <br>
-        Password (optional): <input label="password (optional)" name="password" type="text"></input>
+        Password (optional): <input label="password (optional)" name="password" type="text" id="password-input"></input>
         <input name="submit" type="submit"></input>
         </form>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="js/upload.js"> </script>
     </body>
 </html>

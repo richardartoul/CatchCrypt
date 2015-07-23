@@ -13,8 +13,8 @@ var saveFile = function(req, res, newFile) {
       //encrypt buffer before writing to disk
       fs.writeFile(filePath, encryption.encrypt(req.file.buffer), function(err) {
         if (err) throw err;
-        //send id back to client so that link to retrieve file can be displayed
-        res.status(201).send({uploadId: insertedFile._id});
+        /* send the client a link to their uploaded file, req.headers.host refers to the host of the server (dynamic so that it works locally and once its deployed on a foreign server */
+        res.status(201).send({'uploadId': insertedFile._id});
       });
     });
   });
@@ -22,7 +22,7 @@ var saveFile = function(req, res, newFile) {
 
 module.exports = function(req, res) {
   if (!req.file) {
-    res.status(400).send('You must submit a file!');
+    return res.status(400).send('You must submit a file!');
   }
   var newFile = new db.fileModel();
   newFile.name = req.file.originalname;
