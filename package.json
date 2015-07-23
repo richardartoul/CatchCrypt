@@ -4,7 +4,7 @@
   "description": "A simple API for uplodating files for encryption, and retrieving them later with a password.",
   "main": "server.js",
   "scripts": {
-    "test": "mocha specs/api.js",
+    "test": "mocha specs",
     "start": "node server.js"
   },
   "keywords": [
