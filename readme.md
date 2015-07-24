@@ -49,4 +49,4 @@ CatchCrypt handles resiliency in two different ways:
 7. Improve error handling to be more robust
 8. Address scalability issues described in scalability section
 9. Expand the testing suite to be much more robust: does the API handle all different types of files? Does the API properly reject files that are too large? Will the server crash if too many files are being uploaded at the same time?
-10. General additional features: break large files into smaller parts automatically, allow bulk uploading of multiple files, user accounts with file permission management / analytics, etc etc
+10. General additional features: break large files into smaller parts automatically, allow bulk uploading of multiple files, progress bar during file uploads, user accounts with file permission management / analytics, etc etc
