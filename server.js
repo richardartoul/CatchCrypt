@@ -14,7 +14,7 @@ var encryption = require('./encryption');
 
 //microframework that makes creating servers in Node easier
 var express = require('express');
-var port = process.env.port || 3000;
+var port = process.env.PORT || 3000;
 
 //middle-ware for handling multipart/form-data --- makes handling file uploads easier
 var multer = require('multer');
