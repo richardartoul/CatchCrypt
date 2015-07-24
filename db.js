@@ -1,7 +1,7 @@
 //Db connection
 var mongoose = require('mongoose');
 var config = require('./config');
-var serverAddress = MONGOLAB_URI || config.dbAddress;
+var serverAddress = process.env.MONGOLAB_URI || config.dbAddress;
 mongoose.connect(serverAddress);
 
 var FileSchema = new mongoose.Schema({
