@@ -13,5 +13,7 @@ module.exports = {
   linkExpireInHours: 24,
   /* ---- security settings ---- */
   //number of times to run bcrypt algorithm when generating salt
-  bcryptRepeat: 10
+  bcryptRepeat: 10,
+  /* ---- database settings ----- */
+  dbAddress: 'mongodb://localhost/encryptapi'
 }

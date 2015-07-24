@@ -1,6 +1,6 @@
 //Db connection
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/encryptapi');
+mongoose.connect(config.dbAddress);
 
 var FileSchema = new mongoose.Schema({
   //max password length is 20 characters
