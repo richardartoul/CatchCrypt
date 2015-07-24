@@ -1,6 +1,6 @@
 #CatchCrypt
 
-CatchCrypt is a simple API (and user interface) that allows users to upload files, and then share a link which can be used by anyone to download those files.
+CatchCrypt is a simple API (and user interface) that allows users to upload files, and then share a link which can be used by anyone to download those files. Files are stored encrypted.
 
 ##Features
 1) All files are stored encrypted using aes-256-CTR (configurable)
