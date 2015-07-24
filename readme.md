@@ -25,7 +25,7 @@ CatchCrypt is a simple API (and user interface) that allows users to upload file
 ##Testing
 1. Make sure MongoDB and the API server are running as described in steps 5 and 6 of the installation process
 2. Inside the local directory execute `npm test`
-![](https://github.com/github/training-kit/blob/master/documentation/testsExample.png)
+![](https://github.com/richardartoul/CatchCrypt/blob/master/documentation/testsExample.png)
 
 ##Scalability
 As the API currently stands, the entire process is completely self-contained in one server/process. This is great as an MVP because its very easy to test, debug, and deploy quickly. However, to make the API more scalable, the codebase would need to be divided into separate processes. For example. one process might handle authentication, another would handle encryption / decryption of files, another would handle actually serving links and it might have an additional layer of caching for frequently accessed files.
