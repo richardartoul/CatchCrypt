@@ -1,10 +1,3 @@
-/*TODO: 
-1) look into file permissions / how to make sure no files that are uploaded ever get executed
-2) add logging functionality instead of console logging
-3) Need a test to verify that links become unavailable 24 hours after encryption
-4) Right now links expire after 24 hours, bu files are not removed - could take care of this with a cronjob or something.
-*/
-
 var config = require('./config');
 var errorHandler = require('./errorHandler');
 var fs = require('fs');
