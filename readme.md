@@ -34,13 +34,9 @@ Another problem that would need to be solved in terms of scalability is distribu
 
 ##Resiliency
 CatchCrypt handles resiliency in two different ways:
-1. Error handling:
-  All errors are delegated to a specific error handling function which console logs the error (in production an actual logger would be installed) and sends the client a status code 500 response. This error handling could be expanded upon a lot, but this MVP solution accomplishes two things: 
-  1. The client is notified that an error took place and can take corrective action to minimize detriment to the users experience
-  2. Since all errors are delegated to this function automatically, the servers are protected from isolated errors and will not crash allowing other users to continue using the API
+1. Error handling: All errors are delegated to a specific error handling function which console logs the error (in production an actual logger would be installed) and sends the client a status code 500 response. This error handling could be expanded upon a lot, but this MVP solution accomplishes two things: First, the client is notified that an error took place and can take corrective action to minimize detriment to the users experience. Second,since all errors are delegated to this function automatically, the servers are protected from isolated errors and will not crash allowing other users to continue using the API
 
-2. Testing Suite:
-  CatchCrypt employs a simple testing suite (there is a lot of room for more tests to be added) that checks to make sure that all the basic functionality of the API is working properly. Constantly writing new tests as features are added, and making sure that old tests are still passing, goes a long way towards providing the API with resiliency as many issues with the codebase can be caught automatically before deployment.
+2. Testing Suite: CatchCrypt employs a simple testing suite (there is a lot of room for more tests to be added) that checks to make sure that all the basic functionality of the API is working properly. Constantly writing new tests as features are added, and making sure that old tests are still passing, goes a long way towards providing the API with resiliency as many issues with the codebase can be caught automatically before deployment.
 
 ##Improvements/TODO
 1. Manage folder permissions so that files that are uploaded never get executed / generally investigate security of storing user files on server
