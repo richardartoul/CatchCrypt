@@ -1,1 +1,1 @@
-module.exports = 'sookasa';
+module.exports = 'testencryptionpassword';
