@@ -45,6 +45,10 @@ app.get('/api/:uploadId', getFileHandler);
 //error handling middleware applied last
 app.use(errorHandler);
 
+//create upload folder if it doesn't already exist
+var createUploadFolder = require('./createUploadFolder');
+createUploadFolder();
+
 //start server
 var server = app.listen(port, function() {
   console.log("Express server listening on %d in %s mode", port, app.settings.env);
