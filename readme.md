@@ -2,7 +2,7 @@
 
 CatchCrypt is a simple API (and user interface) that allows users to upload files, and then share a link which can be used by anyone to download those files. Files are stored encrypted.
 
-##Features
+## Features
 1. All files are stored encrypted using aes-256-CTR (configurable)
 2. All links expire after 24 hours (configurable)
 3. Users can optionally provide a password when they upload files, and this password will be required when attemping to download the file using the generated link
